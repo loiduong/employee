@@ -33,7 +33,7 @@ const validate = values => {
         phoneNumber &&
         !/\+65(6|8|9)\d{7}/g.test(phoneNumber)
     ) {
-        errors.phone = 'Invalid phone number (Phone Singapore)'
+        errors.phone = 'Invalid phone number (Phone Singapore (+65))'
     }
 
     if (!values.gender) {
