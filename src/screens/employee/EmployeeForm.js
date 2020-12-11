@@ -11,7 +11,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Button from '@material-ui/core/Button';
 
 import validate from './validations';
-import InputCpn from './components/InputCnp';
+import InputCpn from '../../components/InputCnp';
 
 const useStyles = makeStyles({
     input: {
