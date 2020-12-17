@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { CircularProgress } from "@material-ui/core";
@@ -17,7 +17,7 @@ const circularProgress = makeStyles((them) => ({
 }));
 
 
-const ButtonCpn = ({ type, variant, color, title, hasLink, onClick, isLoading }) => {
+const ButtonCpn = memo(({ type, variant, color, title, hasLink, onClick, isLoading }) => {
     const cssCircular = circularProgress();
     if (isLoading) return (
         <Button type={type || 'button'} variant={variant || 'contained'} color={color || 'primary'} onClick={onClick}>
@@ -29,6 +29,6 @@ const ButtonCpn = ({ type, variant, color, title, hasLink, onClick, isLoading })
             {hasLink || title}
         </Button>
     )
-}
+})
 
 export default ButtonCpn

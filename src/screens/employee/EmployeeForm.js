@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form';
 import { Prompt, Link } from "react-router-dom";
@@ -45,7 +45,7 @@ const radioButton = ({ input, ...rest }) => (
 )
 
 
-let EmployeeForm = props => {
+let EmployeeForm = memo(props => {
     const classes = useStyles();
     const { handleSubmit, dirty, reset, isReset, isLoading } = props;
 
@@ -77,7 +77,7 @@ let EmployeeForm = props => {
 
 
     )
-}
+})
 
 
 EmployeeForm = reduxForm({

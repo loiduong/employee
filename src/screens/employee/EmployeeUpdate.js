@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
 
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     }
 });
 
-const EmployeeUpdate = (props) => {
+const EmployeeUpdate = memo((props) => {
     const classes = useStyles();
     const { id } = props.match.params;
 
@@ -72,6 +72,6 @@ const EmployeeUpdate = (props) => {
             <EmployeeForm onSubmit={(values) => _onSubmit(values)} isLoading={isLoading} />
         </div>
     )
-}
+})
 
 export default EmployeeUpdate

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , memo} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import EmployeeForm from './EmployeeForm';
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     },
 });
 
-const EmployeeCreate = () => {
+const EmployeeCreate = memo(() => {
     const classes = useStyles();
     const [isReset, setIsReset] = useState(false);
     const [isLoading, setLoading] = useState(false);
@@ -44,6 +44,6 @@ const EmployeeCreate = () => {
             <EmployeeForm isReset={isReset} onSubmit={(values) => _onSubmit(values)} isLoading={isLoading}/>
         </div>
     )
-}
+})
 
 export default EmployeeCreate
