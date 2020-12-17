@@ -22,20 +22,26 @@ const useStyles = makeStyles({
 const EmployeeCreate = () => {
     const classes = useStyles();
     const [isReset, setIsReset] = useState(false);
+    const [isLoading, setLoading] = useState(false);
+
     const _onSubmit = async (values) => {
+        setLoading(true);
+        setIsReset(false);
         EmployeeService.createEmployee(values)
             .then(res => {
-                setIsReset(true)
+                setIsReset(true);
+                setLoading(false);
                 toast.success("Created successfully!!!");
             })
             .catch(err => {
+                setLoading(false);
                 toast.error("Create failed!!!")
             })
     }
     return (
         <div className={classes.wrapForm}>
             <div className={classes.txtTitle}>Create new employee</div>
-            <EmployeeForm isReset={isReset} onSubmit={(values) => _onSubmit(values)} />
+            <EmployeeForm isReset={isReset} onSubmit={(values) => _onSubmit(values)} isLoading={isLoading}/>
         </div>
     )
 }

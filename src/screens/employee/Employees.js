@@ -8,7 +8,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import { CircularProgress, Backdrop } from "@material-ui/core";
 
 import { toast } from 'react-toastify';
@@ -23,6 +22,7 @@ import { EmployeeService } from './services';
 import { store } from '../..';
 import { EMPLOYEE_LIST } from './reducers';
 import { Routes } from '../../routers'
+import ButtonCpn from '../../components/ButtonCpn';
 
 
 const useStyles = makeStyles({
@@ -59,6 +59,8 @@ const useStyles = makeStyles({
 function Employees() {
     const { employees } = useSelector(state => state.employeesReducers);
     const [isLoading, setIsloading] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [idSelected, setIdSelected] = useState(null);
 
     useEffect(() => {
         _fetchData();
@@ -94,12 +96,16 @@ function Employees() {
     }
 
     const _removeEmployee = (id) => {
+        setIsDeleting(true);
+        setIdSelected(id);
         EmployeeService.removeEmployee(id)
             .then(res => {
                 toast.success("Deleted successfully!!!");
                 _fetchData();
+                setIsDeleting(false);
             })
             .catch(err => {
+                setIsDeleting(false);
                 toast.error("Delete failed!!!")
             })
     }
@@ -127,9 +133,7 @@ function Employees() {
         <div className={classes.employeesWrap}>
             <div className={classes.txtTitle}>Employee list</div>
             <div className={classes.btnAdd} >
-                <Button variant="contained" color="primary">
-                    <Link className={classes.txtBtn} to={Routes.employeeCreate.path}>Add</Link>
-                </Button>
+                <ButtonCpn variant="contained" color="primary" hasLink={<Link className={classes.txtBtn} to={Routes.employeeCreate.path}>Add</Link>} />
             </div>
 
             <TableContainer component={Paper}>
@@ -154,10 +158,8 @@ function Employees() {
                                 <TableCell align="center">{convertGender(row.gender)}</TableCell>
                                 <TableCell align="center">
                                     <div className={classes.btnActionWrap}>
-                                        <Button variant="contained" color="primary">
-                                            <Link className={classes.txtBtn} to={Routes.employeeUpdate.renderPath(row.id)}>Edit</Link>
-                                        </Button>
-                                        <Button onClick={() => popupConfirmDelete(row.id)} variant="contained" color="secondary">Delete</Button>
+                                        <ButtonCpn variant="contained" color="primary" hasLink={<Link className={classes.txtBtn} to={Routes.employeeUpdate.renderPath(row.id)}>Edit</Link>} />
+                                        <ButtonCpn onClick={() => popupConfirmDelete(row.id)} variant="contained" color="secondary" title="Delete" isLoading={isDeleting && (idSelected === row.id)} />
                                     </div>
 
                                 </TableCell>

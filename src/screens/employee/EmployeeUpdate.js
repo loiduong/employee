@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
 
@@ -24,6 +24,8 @@ const useStyles = makeStyles({
 const EmployeeUpdate = (props) => {
     const classes = useStyles();
     const { id } = props.match.params;
+
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         _fetchData();
@@ -51,12 +53,15 @@ const EmployeeUpdate = (props) => {
             })
     }
     const _onSubmit = (values) => {
+        setIsLoading(true);
         EmployeeService.updateEmployee(id, values)
             .then(res => {
                 _fetchData();
+                setIsLoading(false);
                 toast.success("Updated successfully!!!");
             })
             .catch(err => {
+                setIsLoading(false);
                 toast.error("Update failed!!!");
             })
     }
@@ -64,7 +69,7 @@ const EmployeeUpdate = (props) => {
     return (
         <div className={classes.wrapForm}>
             <div className={classes.txtTitle}>Update employee</div>
-            <EmployeeForm onSubmit={(values) => _onSubmit(values)} />
+            <EmployeeForm onSubmit={(values) => _onSubmit(values)} isLoading={isLoading} />
         </div>
     )
 }
