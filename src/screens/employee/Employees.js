@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,6 +9,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { CircularProgress, Backdrop } from "@material-ui/core";
+
+import { toast } from 'react-toastify';
 
 import { useSelector } from 'react-redux';
 
@@ -20,6 +21,7 @@ import { EmployeeService } from './services';
 import { store } from '../..';
 import { EMPLOYEE_LIST } from './reducers';
 import { Routes } from '../../routers'
+
 
 
 
@@ -75,7 +77,7 @@ function Employees() {
             })
             .catch(err => {
                 setIsloading(false);
-                alert(err)
+                toast.error(err)
             })
     }
 
@@ -89,11 +91,11 @@ function Employees() {
     const _removeEmployee = (id) => {
         EmployeeService.removeEmployee(id)
             .then(res => {
-                alert('Deleted successfully!!!')
+                toast.success("Deleted successfully!!!");
                 _fetchData();
             })
             .catch(err => {
-                alert("Delete failed!!!")
+                toast.error("Delete failed!!!")
             })
     }
 
@@ -129,7 +131,6 @@ function Employees() {
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">ID</TableCell>
                             <TableCell align="center">First name</TableCell>
                             <TableCell align="center">Last name</TableCell>
                             <TableCell align="center">Email address</TableCell>
@@ -141,7 +142,6 @@ function Employees() {
                     <TableBody>
                         {employees.map((row) => (
                             <TableRow key={row.id}>
-                                <TableCell align="center">{row.id}</TableCell>
                                 <TableCell align="center">{row.firstName}</TableCell>
                                 <TableCell align="center">{row.lastName}</TableCell>
                                 <TableCell align="center">{row.email}</TableCell>

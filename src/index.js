@@ -2,11 +2,14 @@ import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { AppRoutes } from './routers';
 import rootReducer from './reducers/rootReducers';
+
 
 // initialState
 const initialState = {}
@@ -18,6 +21,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Fragment>
       <AppRoutes />
+      <ToastContainer/>
     </Fragment>
   </Provider>,
 

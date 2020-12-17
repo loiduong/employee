@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form';
-import { Prompt } from "react-router-dom";
+import { Prompt, Link } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 
 import validate from './validations';
 import InputCpn from '../../components/InputCnp';
+import { Routes } from '../../routers';
 
 const useStyles = makeStyles({
     input: {
@@ -21,7 +22,15 @@ const useStyles = makeStyles({
     wrapBtn: {
         display: 'flex',
         justifyContent: 'flex-end'
-    }
+    },
+    btnBack: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+    },
+    txtBtn: {
+        textDecoration: 'none',
+        color: 'white'
+    },
 });
 
 
@@ -46,22 +55,30 @@ let EmployeeForm = props => {
         }
     }, [isReset])
     return (
-        <form onSubmit={handleSubmit}>
-            <InputCpn type="text" name="firstName" label="First Name" />
-            <InputCpn type="text" name="lastName" label="Last Name" />
-            <InputCpn type="text" name="email" label="Email" />
-            <InputCpn type="text" name="phone" label="Phone" />
-            <div>
-                <Field name="gender" component={radioButton} />
-            </div>
-            <div />
-            <Prompt when={dirty} message="Form has been modified. You will loose your unsaved changes. Are you sure you want to close this form?" />
-            <div className={classes.wrapBtn}>
-                <Button type="submit" variant="contained" color="primary">
-                    Submit
+        <div>
+            <div className={classes.btnBack}>
+                <Button variant="contained" color="primary">
+                    <Link className={classes.txtBtn} to={Routes.employees.path}>Back</Link>
                 </Button>
             </div>
-        </form>
+            <form onSubmit={handleSubmit}>
+                <InputCpn type="text" name="firstName" label="First Name" />
+                <InputCpn type="text" name="lastName" label="Last Name" />
+                <InputCpn type="text" name="email" label="Email" />
+                <InputCpn type="text" name="phone" label="Phone" />
+                <div>
+                    <Field name="gender" component={radioButton} />
+                </div>
+                <div />
+                <Prompt when={dirty} message="Form has been modified. You will loose your unsaved changes. Are you sure you want to close this form?" />
+                <div className={classes.wrapBtn}>
+                    <Button type="submit" variant="contained" color="primary">
+                        Submit
+                </Button>
+                </div>
+            </form>
+        </div>
+
 
     )
 }

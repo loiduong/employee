@@ -18,8 +18,8 @@ export const Routes = {
     },
     employeeUpdate: {
         title: 'Employee Update',
-        path: '/employee/:id',
-        renderPath: (id) => `/employee/${id}`,
+        path: '/employee/edit/:id',
+        renderPath: (id) => `/employee/edit/${id}`,
         component: EmployeeUpdate,
     },
 }

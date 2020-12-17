@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { toast } from 'react-toastify';
 
 import { EmployeeService } from './services';
 import EmployeeForm from './EmployeeForm';
@@ -46,17 +47,17 @@ const EmployeeUpdate = (props) => {
                 })
             })
             .catch(err => {
-                alert(err);
+                toast.error(err);
             })
     }
     const _onSubmit = (values) => {
         EmployeeService.updateEmployee(id, values)
             .then(res => {
                 _fetchData();
-                alert("Updated successfully");
+                toast.success("Updated successfully!!!");
             })
             .catch(err => {
-                alert("Update failed")
+                toast.error("Update failed!!!");
             })
     }
 
