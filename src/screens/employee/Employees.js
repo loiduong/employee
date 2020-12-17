@@ -8,6 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import { CircularProgress, Backdrop } from "@material-ui/core";
 
 import { toast } from 'react-toastify';
@@ -16,13 +17,12 @@ import { useSelector } from 'react-redux';
 
 import { Link } from "react-router-dom";
 
-import Button from '@material-ui/core/Button';
+import { Confirm } from 'react-st-modal';
+
 import { EmployeeService } from './services';
 import { store } from '../..';
 import { EMPLOYEE_LIST } from './reducers';
 import { Routes } from '../../routers'
-
-
 
 
 const useStyles = makeStyles({
@@ -81,9 +81,14 @@ function Employees() {
             })
     }
 
-    const popupConfirmDelete = (id) => {
-        if (window.confirm("Delete the item?")) {
+
+    const popupConfirmDelete = async (id) => {
+        const result = await Confirm('Are you sure delete?',
+            'Delete');
+        if (result) {
             _removeEmployee(id)
+        } else {
+            // Сonfirmation not confirmed
         }
 
     }

@@ -21,7 +21,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Fragment>
       <AppRoutes />
-      <ToastContainer/>
+      <ToastContainer autoClose={3000}/>
     </Fragment>
   </Provider>,
 
